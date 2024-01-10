@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Ürün Listesi Sayfalı</h2>
+<hr />
+
+<form asp-action="PageList" method="get">
+    <div class="input-group w-50 mt-3">
+        <input type="search" name="searchText" value="@ViewBag.SearchText" class="form-control " placeholder="Aranacak Değer Giriniz" />
+        <div class="input-group-append">
+            <input type="submit" value="Ara" class="btn btn-primary" />
+        </div>
+
+    </div>
+
+</form>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>SN</th>
+            <th>Ürün Adı</th>
+            <th>Kategori</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.CategoryName</td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+<ul class="pagination">
+    @for (int i = 1; i <= ViewBag.PageCount; i++)
+    {
+        if (i == ViewBag.Page)
+        {
+            <li class="page-item active"><a class="page-link" asp-route-searchtext="@ViewBag.SearchText" asp-route-page="@i" asp-route-size=@ViewBag.Size>@i</a></li>
+        }
+        else
+        {
+            <li class="page-item"><a class="page-link" asp-route-searchtext="@ViewBag.SearchText" asp-route-page="@i" asp-route-size=@ViewBag.Size>@i</a></li>
+        }
+
+    }
+
+
+
+</ul>
+
+<ul class="pagination">
+    @for (int i = 5; i <= 25; i = i + 5)
+    {
+        if (i == ViewBag.Size)
+        {
+            <li class="page-item active"><a class="page-link" asp-route-searchtext="@ViewBag.SearchText" asp-route-page="@ViewBag.page" asp-route-size="@i">@i</a></li>
+        }
+        else
+        {
+            <li class="page-item "><a class="page-link" asp-route-searchtext="@ViewBag.SearchText" asp-route-page="@ViewBag.page" asp-route-size="@i">@i</a></li>
+        }
+    }
+
+
+
+</ul>

@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+@model ProductModel
+<h2>Ürün Düzenle</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Ürün Adı</label>
+                <input type="text" class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label">Ürün Fiyatı</label>
+                <input type="text" class="form-control" asp-for="Price">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Ürün Açıklama</label>
+                <textarea rows="3" class="form-control" asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label">Durumu</label>
+                <input type="checkbox" class="form-check" asp-for="Status"> Aktif
+
+            </div>
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Ürün Kategori ID</label>
+                <input type="number" class="form-control" asp-for="CategoryId">
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CategoryName" class="form-label">kategory adı</label>
+                <input type="text" class="form-control" asp-for="CategoryName">
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+           
+
+            <div class="mb-3">
+                <input type="hidden" asp-for="Id" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+                <input type="submit" value="Güncelle" class="btn btn-outline-primary" />
+            </div>
+         </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

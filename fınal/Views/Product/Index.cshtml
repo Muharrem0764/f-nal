@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdminLTE";
+}
+@model List<ProductModel>
+<h2>Ürünler</h2>
+<hr />
+<a asp-action="Insert" class="btn btn-outline-primary">      YENİ ÜRÜN EKLE</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>SN</th>
+            <th>Adı</th>
+            <th>Fiyatı</th>
+            <th>Açıklama</th>
+            <th>Durumu</th>            
+            <th>Ürün Kategori</th>
+            <th>Ürün Kategori ID</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Description</td>
+
+                <td>
+
+                    @if (item.Status)
+                    {
+                        <a asp-action="ChangeStatus" asp-route-id="@item.Id" asp-route-st="False"><span class="badge bg-success">Aktif</span></a>
+                    }
+                    else
+                    {
+
+                        <a asp-action="ChangeStatus" asp-route-id="@item.Id" asp-route-st="True"> <span class="badge bg-danger">Pasif</span></a>
+                    }
+
+
+                </td>
+                <td>@item.CategoryName</td>
+                <td>@item.CategoryId</td>
+                <td>
+                    <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-info">Detay</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Sil</a>
+                </td>
+            </tr>
+
+            i++;
+
+        }
+
+    </tbody>
+</table>

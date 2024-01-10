@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+}
+@model ProductModel
+<h2>Ürün Detayı</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <table class="table">
+            <tr>
+                <td><b>Adı</b></td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <td><b>Fiyatı</b></td>
+                <td>@Model.Price</td>
+            </tr>
+            <tr>
+                <td><b>Açıklama</b></td>
+                <td>@Model.Description</td>
+            </tr>
+            <tr>
+                <td><b>Durumu</b></td>
+                <td>
+                    @if (Model.Status)
+                    {
+                        <span class="badge bg-success">Aktif</span>
+                    }
+                    else
+                    {
+
+                        <span class="badge bg-danger">Pasif</span>
+                    }
+                </td>
+            </tr>
+        </table>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning">Düzenle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Sil</a>
+
+    </div>
+</div>

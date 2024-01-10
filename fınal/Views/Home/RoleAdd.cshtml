@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "RoleAdd";
+    Layout = "_LayoutAdminLTE";
+}
+@model AppRole
+<h3>Role Ekle</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RoleAdd">
+            <div class="mb-2">
+                <label>Rol Adı</label>
+                <input type="text" class="form-control" asp-for="Name" />
+            </div>
+            <div class="mb-2">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

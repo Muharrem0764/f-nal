@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@model LoginModel
+<div class="row">
+    <div class="col-md-4 offset-4">
+        <form asp-action="Login" method="post">
+            <div class="card">
+                <div class="card-header"><h3>Oturum Aç</h3></div>
+                <div class="card-body">
+                    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+                    <div class="mb-3">
+                        <label asp-for="UserName"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password"></label>
+                        <input type="password" asp-for="Password" class="form-control" value="Abc.123" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="RememberMe"></label>
+                        <input asp-for="RememberMe" class="form-check" />
+
+                    </div>
+
+                </div>
+                <div class="card-footer">
+
+                    <input type="submit" value="Giriş" class="btn btn-primary" />
+                    <a asp-action="Register" class="btn btn-link">Kayıt Ol</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+

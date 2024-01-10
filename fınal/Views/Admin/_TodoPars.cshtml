@@ -1,0 +1,206 @@
+﻿
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <div id="progress"></div>
+
+
+        <table class="table" id="tbTodos">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Durumu</th>
+                    </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="col-md-4">
+
+        <h3 id="baslik"></h3><hr />
+
+        <div class="mb-3">
+            <label>Başlık</label>
+            <input type="text" class="form-control" id="txtTitle" />
+        </div>
+        <div class="mb-3">
+            <label>Durumu</label>
+            <select class="form-select" id="cbStatus">
+                <option value="0">Bekliyor</option>
+                <option value="1">Tamamlandı</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="hidden" id="txtId" />
+            <button class="btn btn-primary" id="btnKaydet">Kaydet</button>
+            <button class="btn btn-secondary" id="btnVazgec">Vazgeç</button>
+            <button class="btn btn-danger" id="btnSil">Sil</button>
+        </div>
+        <div class="alert" id="sonuc"></div>
+
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            LoadTodos();
+
+
+            function LoadTodos() {
+                $("#btnVazgec").hide();
+                $("#btnSil").hide();
+                $("#baslik").html("Yeni Kayıt");
+                $("#txtTitle").val("");
+                $("#txtId").val("0");
+                $("#cbStatus").val(0);
+                $("#tbTodos tbody").empty();
+                $.ajax({
+                    url: "/Todo/TodoListAjax",
+                    type: "Get",
+                    data: {},
+                    success: function (data) {
+                        var i = 1;
+                        var t = 0;
+                        var b = 0;
+                        $.each(data, function (index, item) {
+                            var cl = "";
+                            var msg = "";
+                            if (item.status == 0) {
+                                cl = "danger";
+                                msg = "Bekliyor";
+                                b++;
+                            } else {
+                                cl = "success";
+                                msg = "Tamamlandı";
+                                t++;
+                            }
+
+                            var todo = '<tr id="' + item.id + '"><td>' + i + ' </td> <td>' + item.title + '</td><td><span class="badge bg-' + cl + '"> ' + msg + ' </span> </td><td><button class="btn btn-warning edit">Düzenle</button></td></tr>';
+
+                            $("#tbTodos tbody").append(todo);
+                            i++;
+
+
+
+                        });
+                        var yuzde = 0;
+                        var total = b + t;
+                        if (t > 0 && total > 0) {
+                            yuzde = Math.round(100 * (t / total));
+
+                        }
+
+                        var progress = '<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="' + yuzde + '" aria-valuemin="0" aria-valuemax="100" style="height:50px"><div class="progress-bar" style = "width: ' + yuzde + '%"></div></div><h3> % ' + yuzde + ' </h3>';
+                        $("#progress").html(progress);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    },
+                });
+
+            }
+
+
+            $("#btnKaydet").click(function () {
+
+                var title = $("#txtTitle").val();
+                var status = $("#cbStatus").val();
+                var id = $("#txtId").val();
+
+                if (title == "" || title == null) {
+                    $("#sonuc")
+                        .removeClass()
+                        .addClass("alert alert-danger")
+                        .html("Başlık Giriniz!");
+                    return false;
+                }
+
+                $.ajax({
+                    url: "/Todo/TodoAddEditAjax",
+                    type: "POST",
+                    data: { id: id, title: title, status: status },
+                    success: function (data) {
+                        if (data.status) {
+                            $("#sonuc")
+                                .removeClass()
+                                .addClass("alert alert-success")
+                                .html(data.message);
+                            LoadTodos();
+                        } else {
+                            $("#sonuc")
+                                .removeClass()
+                                .addClass("alert alert-danger")
+                                .html(data.message);
+                        }
+                    },
+                    error: function (e) { }
+                });
+
+
+
+            });
+
+            $(document).on("click", ".edit", function () {
+                var id = $(this).closest("tr").attr("id");
+                $("#baslik").html("Kayıt Düzenle");
+                $("#btnVazgec").show();
+                $("#btnSil").show();
+                $.ajax({
+                    url: "/todo/TodoByIdAjax",
+                    type: "Get",
+                    data: { id: id },
+                    success: function (data) {
+                        $("#txtTitle").val(data.title);
+                        $("#txtId").val(data.id);
+                        $("#cbStatus").val(data.status);
+                    },
+                    error: function () { }
+                });
+            });
+
+
+            $("#btnVazgec").click(function () {
+                LoadTodos();
+            });
+            $("#btnSil").click(function () {
+                var id = $("#txtId").val();
+                $.ajax({
+                    url: "/todo/TodoRemoveAjax",
+                    type: "Get",
+                    data: { id: id },
+                    success: function (data) {
+                        if (data.status) {
+                            $("#sonuc")
+                                .removeClass()
+                                .addClass("alert alert-success")
+                                .html(data.message);
+                            LoadTodos();
+                        } else {
+                            $("#sonuc")
+                                .removeClass()
+                                .addClass("alert alert-danger")
+                                .html(data.message);
+                        }
+
+                    },
+                    error: function () { }
+                });
+            });
+
+
+
+
+
+        });
+
+    </script>
+}

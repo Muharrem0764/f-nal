@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_layoutAdminLTE";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Admin Panel</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="nav-link"><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-5">
+                    <!-- small box -->
+                    <div class="big-box bg-danger">
+                        <div class="inner" big-box">
+                            <h3>1</h3>
+
+                            <h3>Deaktif Ürün Sayısı</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-3 col-5">
+                    <!-- small box -->
+                    <div class="big-box bg-purple">
+                        <div class="inner" big-box">
+                            <h3>1</h3>
+
+                            <h3>Aktif Ürün Sayısı</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- ./col -->
+                <div class="col-lg-3 col-5">
+                    <!-- small box -->
+                    <div class="big-box bg-blue">
+                        <div class="inner">
+                            <h3>1</h3>
+
+                            <h3>Üye Sayısı</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-12 connectedSortable">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="ion ion-clipboard mr-1"></i>
+                                To Do List
+                            </h3>
+                            <p>
+                                <partial name="_TodoPars" />
+                            </p>
+                            
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+    </section>
+    <!-- right col -->
+</div>
+<!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+<!-- /.content -->
+</div>
+
